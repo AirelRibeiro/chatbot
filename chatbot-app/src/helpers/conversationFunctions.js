@@ -1,33 +1,40 @@
 import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 
-const saveConversationHistory = (messages) => {
+const saveConversationHistory = (messages, user) => {
   if (messages.length === 0) {
     alert('Não há conversas para exportar.');
     return;
   }
+
   const conversationData = messages.map((message, index) => {
     const timestamp = new Date().toLocaleString();
-    const isUserMessage = message.hasOwnProperty('user');
-    const content = isUserMessage ? message.user : message.bot;
+    const sender = message.hasOwnProperty(user)
+      ? user
+      : message.user
+      ? 'user'
+      : 'bot';
+    const content = message[sender];
 
     return {
-      'Conversa do usuário nº': index + 1,
+      'Número da conversa': index + 1,
       'Data e hora': timestamp,
+      'Enviado por': sender,
       Mensagem: content,
     };
   });
 
   const csvHeader = [
-    { id: 'Conversa do usuário nº', title: 'Conversa do usuário nº' },
-    { id: 'Data e hora', title: 'Data e hora' },
-    { id: 'Mensagem', title: 'Mensagem' },
+    'Número da conversa',
+    'Data e hora',
+    'Enviado por',
+    'Mensagem',
   ];
-
-  const csvContent = [csvHeader, ...conversationData];
-  const csvText = csvContent
-    .map((row) => Object.values(row).join(','))
-    .join('\n');
+  const csvContent = [
+    csvHeader,
+    ...conversationData.map((row) => Object.values(row)),
+  ];
+  const csvText = csvContent.map((row) => row.join(',')).join('\n');
   const blob = new Blob([csvText], { type: 'text/csv;charset=utf-8' });
   saveAs(blob, 'conversa.csv');
 
