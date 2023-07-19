@@ -125,15 +125,15 @@ function Chat() {
           />
           <button
             onClick={clickFunction}
-            className="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md"
+            className="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4"
           >
             Enviar
           </button>
           <button
-            className="bg-pink-900-900 hover:bg-pink-700-700 text-white font-bold py-2 px-4 rounded-r-md"
+            className="bg-pink-900 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-r-md"
             onClick={() => saveConversationHistory(messages)}
           >
-            Exportar Conversa
+            Salvar Conversa
           </button>
         </div>
       </div>

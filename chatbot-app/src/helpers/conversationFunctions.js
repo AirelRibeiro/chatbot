@@ -31,7 +31,7 @@ const saveConversationHistory = (messages) => {
   const blob = new Blob([csvText], { type: 'text/csv;charset=utf-8' });
   saveAs(blob, 'conversa.csv');
 
-  alert('Conversa salva com sucesso!');
+  alert('Conversa criada com sucesso! Escolha onde salvar.');
 };
 
 const exportConversationHistory = (messages, user) => {
